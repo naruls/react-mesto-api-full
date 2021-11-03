@@ -1,0 +1,15 @@
+.header__regisiterButton{
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: right;
+  color: #FFFFFF;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.header__regisiterButton:hover{
+  opacity: 0.6;
+}

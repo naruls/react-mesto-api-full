@@ -1,0 +1,21 @@
+.profile__add-button{
+  background-image: url(../../../images/Add_Button.svg);
+  width: 150px;
+  height: 50px;
+  margin: auto 0 auto auto;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+}
+.profile__add-button:hover{
+  opacity: 0.6;
+}
+@media screen and (min-width: 320px) and (max-width:681px) {
+  .profile__add-button{
+    background-image: url(../../../images/Add_Button2.svg);
+    min-width: 282px;
+    margin: 0 auto;
+  }
+}

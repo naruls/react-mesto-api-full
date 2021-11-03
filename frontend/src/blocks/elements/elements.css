@@ -1,0 +1,22 @@
+#card-template{
+  width: 880px;
+  display: grid;
+  margin: 47.25px auto 0;
+  grid-template-columns: repeat(3, 282px);
+  grid-column-gap: 17px;
+  grid-row-gap: 20px;
+}
+@media screen and (min-width: 681px) and (max-width:900px) {
+  #card-template{
+    width: 581px;
+    grid-template-columns: repeat(2, 282px);
+  }
+}
+@media screen and (min-width: 320px) and (max-width:681px) {
+  #card-template{
+    width: 282px;
+    margin: 36px auto 0;
+    grid-template-columns: 282px;
+    grid-column-gap: 0;
+  }
+}

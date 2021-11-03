@@ -1,0 +1,7 @@
+.popup_main{
+  height: auto;
+  max-height: calc(75vh + 98px);
+  max-width: calc(75vw + 99.14px);
+  align-content: center;
+}
+

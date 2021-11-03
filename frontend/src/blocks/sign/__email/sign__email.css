@@ -1,0 +1,15 @@
+.sign__email{
+  display: flex;
+  background-color: black;
+  width: 358px;
+  height: 26px;
+  margin: 54px auto 30px;
+  border:0;
+  border-bottom: 1px solid #CCCCCC;
+  font-family:Inter, serif, Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  color: #CCCCCC;
+}

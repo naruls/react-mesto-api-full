@@ -1,0 +1,18 @@
+.popup{
+  max-width: 526.56px;
+  height: 426.56px;
+  position: fixed;
+  z-index: 2;
+  left:0;
+  right:0;
+  bottom: 0;
+  top: 0;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+@media screen and (min-width: 320px) and (max-width:681px) {
+  .popup{
+    max-width: 282px;
+  }
+}

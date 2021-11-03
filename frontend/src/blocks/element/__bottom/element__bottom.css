@@ -1,0 +1,7 @@
+.element__bottom{
+  background-color: #FFFFFF;
+  display: flex;
+  height: 79px;
+  border-radius: 0 0 10px 10px;
+  justify-content: space-between;
+}

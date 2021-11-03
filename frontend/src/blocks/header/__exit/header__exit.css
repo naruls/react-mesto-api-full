@@ -1,0 +1,14 @@
+.header__exit{
+margin: 0 0 auto 24px;
+font-family: Inter;
+font-style: normal;
+font-weight: normal;
+font-size: 18px;
+line-height: 22px;
+color: #A9A9A9;
+}
+
+.header__exit:hover{
+  opacity: 0.6;
+  cursor: pointer;
+}

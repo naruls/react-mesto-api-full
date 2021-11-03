@@ -1,0 +1,16 @@
+.popup__save-button_nonactive{
+  color: #000;
+  background-color: #fff;
+  opacity: 0.2;
+  border: 1px solid #000000;
+}
+.popup__save-button_nonactive:hover{
+  opacity: 0.2;
+}
+@media screen and (min-width: 320px) and (max-width:681px) {
+    .popup__save-button_nonactive{
+    color: #000;
+    background-color: #fff;
+    opacity: 0.2;
+  }
+}

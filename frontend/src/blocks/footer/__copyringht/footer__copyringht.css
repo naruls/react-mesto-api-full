@@ -1,0 +1,16 @@
+.footer__copyringht{
+  margin: 67px auto 60px;
+  font-family:Inter, serif, Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  color: #545454;
+}
+@media screen and (min-width: 320px) and (max-width:681px) {
+  .footer__copyringht{
+    margin: 0;
+    font-size: 14px;
+    line-height: 17px;
+  }
+}

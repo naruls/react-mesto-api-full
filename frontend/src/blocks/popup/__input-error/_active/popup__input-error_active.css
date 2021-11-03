@@ -1,0 +1,27 @@
+.popup__input-error_active{
+position: absolute;
+width: 358px;
+top: 195.56px;
+left: 83px;
+display: block;
+font-family: Inter;
+font-style: normal;
+font-weight: normal;
+font-size: 12px;
+line-height: 15px;
+color: #FF0000;
+}
+.popup__input-error_active:last-of-type{
+  top: 254.56px;
+}
+
+@media screen and (min-width: 320px) and (max-width:681px) {
+.popup__input-error_active{
+    width: 238px;
+    left: 22px;
+    top: 200.56px;
+  }
+.popup__input-error_active:last-of-type{
+    top: 259.56px;
+  }
+}
