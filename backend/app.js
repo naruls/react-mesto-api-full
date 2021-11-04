@@ -13,20 +13,26 @@ require('dotenv').config();
 
 const app = express();
 
-const allowedCors = [
-  'https://kirillnihaenkonaruls.nomoredomains.icu',
-  'https://api.kirillnihaenkonaruls.nomoredomains.icu',
-  'http://localhost:3000',
-];
+const corsOptions = {
+  origin: [
+    'http://localhost:3000',
+    'https://kirillnihaenkonaruls.nomoredomains.icu',
+    'https://api.kirillnihaenkonaruls.nomoredomains.icu,
+  ],
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+  allowedHeaders: ['Content-Type', 'origin', 'Authorization'],
+  credentials: true,
+};
 
-app.use(cors({
-  origin: allowedCors,
-}));
 
 const { PORT = 3000 } = process.env;
 
 mongoose.connect('mongodb://localhost:27017/mestodb', {
 });
+
+app.use('*', cors(corsOptions));
 
 app.use(express.json());
 
