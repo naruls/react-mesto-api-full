@@ -61,3 +61,4 @@ userSchema.statics.findUserByCredentials = function (email, password) { //eslint
 };
 
 module.exports = mongoose.model('user', userSchema);
+

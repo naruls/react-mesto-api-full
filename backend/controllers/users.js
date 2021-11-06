@@ -16,7 +16,8 @@ module.exports.getUsers = (req, res, next) => {
 };
 
 module.exports.getCurrentUser = (req, res, next) => {
-  User.findById(req.params._id)
+console.log(req);
+  User.findById(req.user._id)
     .orFail(() => new NotFoundError('Нет пользователя с таким id'))
     .then((user) => res.send({ data: user }))
     .catch((err) => {
@@ -55,14 +56,15 @@ module.exports.createUser = (req, res, next) => {
       email,
       password: hash,
     }))
-    .then(() => res.status(200).send({
-      data: {
-        name,
-        about,
-        avatar,
-        email,
-      },
-    }))
+        .then((user) => {
+      res.send({
+        name: user.name,
+        about: user.about,
+        avatar: user.avatar,
+        email: user.email,
+        _id: user._id,
+      });
+    })
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new ValidationError('Переданы некорректные данные при создании пользователя'));
@@ -120,12 +122,12 @@ module.exports.login = (req, res, next) => {
         { expiresIn: '7d' },
       );
       res
-        .cookie('jwt', token, {
+        .cookie('token', token, {
           maxAge: 3600000 * 24 * 7,
           httpOnly: true,
-          sameSite: true,
+          sameSite: 'none',
         })
-        .send({ message: 'Авторизация прошла успешно' });
+        .send({ token  });
     })
     .catch(() => {
       next(new LoginError('Неверный логин либо пароль'));

@@ -15,5 +15,3 @@ card.put('/cards/:_id/likes', Id, likeCard);
 card.delete('/cards/:_id/likes', Id, dislikeCard);
 
 module.exports = card;
-
-/* Большое спасибо за подробное объяснение ошибок! */

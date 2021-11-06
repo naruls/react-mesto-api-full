@@ -34,11 +34,33 @@ function App(props) {
   const history = useHistory();
 
 
+    const checkToken = React.useCallback(() => {
+        const token = localStorage.getItem('token');
+        if(token){
+        mestoAuth.getContent(token).then(
+            (data) => {
+                handleLogin(true);
+                setCurrentEmail(data.data.email);
+                history.push('/my-profile');
+            })
+            .catch((err) => { console.log(err); }
+            );
+        }
+    }, []);
+
+
+    React.useEffect(() => {
+            checkToken();
+    }, [checkToken]);
+
+
+
 
   React.useEffect(() => {
-      api.getUserInfo()
+      const token = localStorage.getItem('token');
+      api.getUserInfo(token)
         .then((data)=>{
-          setCurrentUser( {...data} );
+          setCurrentUser( {...data.data} );
         })
         .catch((err) => {
           console.log(err)
@@ -82,10 +104,10 @@ function App(props) {
   }
 
   function handleUpdateUser(data) {
-    api.setUserInfo(data)
+    api.setUserInfo(data, localStorage.token)
       .then(
       (data) => {
-        setCurrentUser(data);
+        setCurrentUser(data.data);
         closeAllPopups();
       })
       .catch((err) => {
@@ -94,10 +116,10 @@ function App(props) {
   }
 
   function handleUpdateAvatar(data) {
-    api.setUserAvatar(data)
+    api.setUserAvatar(data, localStorage.token)
       .then(
       (data) => {
-        setCurrentUser(data);
+        setCurrentUser(data.data);
         closeAllPopups();
       })
       .catch((err) => {
@@ -106,10 +128,10 @@ function App(props) {
   }
 
   function handleAddPlaceSubmit(data) {
-    api.postCard(data)
+    api.postCard(data, localStorage.token)
       .then(
       (data) => {
-        setCards([data, ...cards]);
+        setCards([data.data, ...cards]);
         closeAllPopups();
       })
       .catch((err) => {
@@ -120,9 +142,10 @@ function App(props) {
   const [cards , setCards ] = React.useState([]);
 
   React.useEffect(() => {
-    api.getInitialCards()
+    const token = localStorage.getItem('token');
+    api.getInitialCards(token)
       .then((data)=>{
-      setCards([...data])
+      setCards([...data.data])
     })
       .catch((err) => {
         console.log(err);
@@ -130,11 +153,13 @@ function App(props) {
   }, [])
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    const isLiked = card.likes.some((i) => i === currentUser._id);
    
-    api.changeLikeCardStatus(card._id, !isLiked)
+    api.changeLikeCardStatus(card._id, !isLiked, localStorage.token)
       .then((newCard) => {
-        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+        const data = newCard.data
+        const newCards = cards.map((item) => (item._id === card._id ? data : item));
+        setCards(newCards);
       })
       .catch((err) => {
         console.log(err);
@@ -142,8 +167,8 @@ function App(props) {
   }
 
   function handleCardDelete(card) {
-    api.deleteCard(card._id)
-    .then(() => {
+    api.deleteCard(card._id, localStorage.token)
+    .then((data) => {
       setCards((state) => state.filter((c) => c !== card));
     })
     .catch((err) => {
@@ -151,33 +176,18 @@ function App(props) {
     });
   }
 
-  React.useEffect(() => {
-      const jwt = localStorage.getItem('jwt');
-       if (jwt){
-        mestoAuth.getContent(jwt).then((res) => {
-          if (res){
-            setCurrentEmail(res.data.email);
-            handleLogin();
-            history.push("/");
-          }
-        }).catch((err) => {
-        console.log(err);
-      });
-      }
-  }, []);
-
   function signOut(){
-    localStorage.removeItem('jwt');
+    localStorage.removeItem("token");
     history.push('/sign-in');
   }
 
   function loginAuth(email, password){
     mestoAuth.authorize(email, password).then((data) => {
-    if (data.token){
+    if (data.token) {
       setCurrentEmail(email);
       handleLogin();
       history.push('/mesto');
-    }  
+    }
   })
   .catch(err => console.log(err));
   }

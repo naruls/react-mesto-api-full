@@ -9,8 +9,9 @@ export class Api {
       method: 'GET',
       headers: {
         ...this._headers,
-        Authorization: `Bearer ${token}`
-      }
+      authorization: `Bearer ${token}`
+      },
+      credentials: 'include',
     }).then(this._getResponseData)
   }
 
@@ -19,8 +20,9 @@ export class Api {
     method: 'GET',
     headers: {
       ...this._headers,
-      Authorization: `Bearer ${token}`
-      }
+      authorization: `Bearer ${token}`
+      },
+    credentials: 'include',
   }).then(this._getResponseData)
 } 
 
@@ -29,8 +31,9 @@ export class Api {
       method: 'PATCH',
       headers: {
         ...this._headers,
-        Authorization: `Bearer ${token}`
+      authorization: `Bearer ${token}`
       },
+      credentials: 'include',
       body: JSON.stringify({
         name: data.name,
         about: data.about
@@ -43,8 +46,9 @@ export class Api {
       method: 'PATCH',
       headers: {
         ...this._headers,
-        Authorization: `Bearer ${token}`
+      authorization: `Bearer ${token}`
       },
+      credentials: 'include',
       body: JSON.stringify({
         avatar: data.avatar
       })
@@ -56,8 +60,9 @@ export class Api {
       method: 'POST',
       headers: {
         ...this._headers,
-        Authorization: `Bearer ${token}`
+      authorization: `Bearer ${token}`
       },
+      credentials: 'include',
       body: JSON.stringify({
         name: data.name,
         link: data.link
@@ -66,22 +71,24 @@ export class Api {
   }
 
   likeCard(data, token) {
-  return fetch(`${this._baseUrl}/cards/likes/${data}`, {
+  return fetch(`${this._baseUrl}/cards/${data}/likes`, {
       method: 'PUT',
       headers: {
         ...this._headers,
-        Authorization: `Bearer ${token}`
-      }
+      authorization: `Bearer ${token}`
+      },
+      credentials: 'include',
     }).then(this._getResponseData)
   }
 
   dislikeCard(data, token) {
-  return fetch(`${this._baseUrl}/cards/likes/${data}`, {
+  return fetch(`${this._baseUrl}/cards/${data}/likes`, {
       method: 'DELETE',
       headers: {
         ...this._headers,
-        Authorization: `Bearer ${token}`
-      }
+      authorization: `Bearer ${token}`
+      },
+      credentials: 'include',
     }).then(this._getResponseData)
   }
   
@@ -90,16 +97,17 @@ export class Api {
       method: 'DELETE',
       headers: {
         ...this._headers,
-        Authorization: `Bearer ${token}`
-      }
+      authorization: `Bearer ${token}`
+      },
+      credentials: 'include',
     }).then(this._getResponseData)
   }
 
-  changeLikeCardStatus(data, isLiked) {
+  changeLikeCardStatus(data, isLiked, token) {
     if (isLiked) {
-      return this.likeCard(data);
+      return this.likeCard(data, token);
     } else {
-      return this.dislikeCard(data);
+      return this.dislikeCard(data, token);
     }
   }
 

@@ -1,5 +1,9 @@
 export const BASE_URL = 'https://api.kirillnihaenkonaruls.nomoredomains.icu';
 
+const checkRes = (res) => {
+    return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
+}
+
 export const register = (email, password) => {
   return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
@@ -10,9 +14,8 @@ export const register = (email, password) => {
     body: JSON.stringify({email, password})
   })
   .then((response) => {
-    console.log(response)
     try {
-      if (response.status === 201){
+      if (response.status === 200){
         return response.json();
       }
     } catch(e){
@@ -31,16 +34,20 @@ export const register = (email, password) => {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
+    credentials: 'include',
     body: JSON.stringify({email, password})
   })
   .then((response => response.json()))
-  .then((data) => {
-    if (data.token){
-      localStorage.setItem('jwt', data.token);
-      return data;
+  .then((res) => {
+    if (res) {
+      document.cookie = `token=${res.token}`;
+      localStorage.setItem('token', res.token);
+      return res;
     }
-  })
-};
+    }).catch((err) => {
+    Promise.reject(`Ошибка: ${err.status}`);
+  });
+}
 
 export const getContent = (token) => {
   return fetch(`${BASE_URL}/users/me`, {
@@ -48,9 +55,12 @@ export const getContent = (token) => {
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
-    }
+      'authorization': `Bearer ${token}`
+    },
   })
   .then(res => res.json())
   .then(data => data)
+  .catch((err) => {
+    return err;
+  });
 } 
