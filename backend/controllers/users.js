@@ -16,7 +16,6 @@ module.exports.getUsers = (req, res, next) => {
 };
 
 module.exports.getCurrentUser = (req, res, next) => {
-console.log(req);
   User.findById(req.user._id)
     .orFail(() => new NotFoundError('Нет пользователя с таким id'))
     .then((user) => res.send({ data: user }))
@@ -56,7 +55,7 @@ module.exports.createUser = (req, res, next) => {
       email,
       password: hash,
     }))
-        .then((user) => {
+    .then((user) => {
       res.send({
         name: user.name,
         about: user.about,
@@ -127,7 +126,7 @@ module.exports.login = (req, res, next) => {
           httpOnly: true,
           sameSite: 'none',
         })
-        .send({ token  });
+        .send({ token });
     })
     .catch(() => {
       next(new LoginError('Неверный логин либо пароль'));
