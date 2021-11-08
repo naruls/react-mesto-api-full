@@ -57,6 +57,10 @@ app.use('/', cards);
 
 app.use(errorLogger);
 
+app.all('*', (req, res, next) => {
+  next(new NotFoundError('Ресурс не найден'));
+});
+
 app.use(errors());
 
 app.use((err, req, res, next) => {
