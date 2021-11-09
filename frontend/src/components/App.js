@@ -39,9 +39,10 @@ function App(props) {
         if(token){
         mestoAuth.getContent(token).then(
             (data) => {
+                console.log(data)
                 handleLogin(true);
-                setCurrentEmail(data.data.email);
-                history.push('/my-profile');
+                setCurrentEmail(data.message.email);
+                history.push('/');
             })
             .catch((err) => { console.log(err); }
             );
@@ -60,7 +61,7 @@ function App(props) {
       const token = localStorage.getItem('token');
       api.getUserInfo(token)
         .then((data)=>{
-          setCurrentUser( {...data.data} );
+          setCurrentUser( {...data.message} );
         })
         .catch((err) => {
           console.log(err)
@@ -107,6 +108,7 @@ function App(props) {
     api.setUserInfo(data, localStorage.token)
       .then(
       (data) => {
+        console.log(data.data)
         setCurrentUser(data.data);
         closeAllPopups();
       })

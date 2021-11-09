@@ -29,7 +29,7 @@ module.exports.getCurrentUser = (req, res, next) => {
 };
 
 module.exports.getUser = (req, res, next) => {
-  User.findById(req.user._id)
+  User.findById(req.params._id)
     .then((user) => {
       if (!user) {
         throw new NotFoundError(`Пользователь с id: ${req.user._id} не найден`);
