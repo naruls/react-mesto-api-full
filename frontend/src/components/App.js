@@ -39,7 +39,6 @@ function App(props) {
         if(token){
         mestoAuth.getContent(token).then(
             (data) => {
-                console.log(data)
                 handleLogin(true);
                 setCurrentEmail(data.message.email);
                 history.push('/');
