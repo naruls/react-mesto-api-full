@@ -4,8 +4,8 @@ const cors = require('cors');
 const options = {
   origin: [
     'http://localhost:3000',
-    'https://kirillnihaenkonaruls.nomoredomains.icu',
-    'https://api.kirillnihaenkonaruls.nomoredomains.icu',
+    'http://narulsimagesaving.ru',
+    'https://narulsimagesaving.ru',
   ],
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
   preflightContinue: false,
